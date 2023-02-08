@@ -1,4 +1,4 @@
-package Repository;
+package Repository.Abstracts;
 
 public interface IRepository<T>
 {
