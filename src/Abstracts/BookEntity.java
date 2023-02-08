@@ -12,8 +12,17 @@ import java.util.HashSet;
 public abstract class BookEntity
 {
 
+    public static ArrayList<BookEntity> BookInstances;
+    static
+    {
+        BookInstances = new ArrayList<BookEntity>();
+    }
+
     public HashSet<String> Tags;
     public ArrayList<IReview> Reviews;
+
+    public Integer ID;
+
 
     private String bookName;
     public String getName() { return this.bookName;}
@@ -35,6 +44,7 @@ public abstract class BookEntity
     {
         Tags = new HashSet<String>();
         Reviews = new ArrayList<IReview>();
+        ID = BookInstances.size();
     }
 
     public void addTag(String tag) {Tags.add(tag);}
