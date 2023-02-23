@@ -5,9 +5,6 @@ import Repository.DBController;
 import Repository.TableWrapper;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -20,10 +17,11 @@ public class UserSelectionDialog extends JDialog{
         setContentPane(userListPanel);
         setVisible(true);
         setSize(200,300);
-
+        setLocation(200,200);
         userlist.setSize(100,100);
-        userlist.setModel(getUsersModel());
 
+
+        refreshUserList();
         selectBtn.addActionListener(e -> {
             var selectedUsr=(IUser) userlist.getSelectedValue();
             if(selectedUsr != null) {
@@ -36,6 +34,10 @@ public class UserSelectionDialog extends JDialog{
 
     }
 
+
+    private void refreshUserList(){
+        userlist.setModel(getUsersModel());
+    }
 
     private DefaultListModel<IUser> getUsersModel(){
         var model = new DefaultListModel<IUser>();

@@ -8,6 +8,10 @@ import Domain.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Класс обеспечивает работу с контроллером БД через объекты бизнес-логики.
+ * Переводит сущности бизнес логики в сущности БД
+ */
 public class TableWrapper
 {
     public static IUser getCurrentUser(ResultSet table)
@@ -25,6 +29,20 @@ public class TableWrapper
         }
         catch(SQLException e) {e.printStackTrace();}
         return null;
+    }
+
+
+    /**Добавит нового Юзера в БД через DBController
+     * Внимание: класс зависит от конкретной реализации User
+     */
+    public static boolean addNewUser(User usr){
+        var regdate = usr.getJoinDate();
+        String date = regdate.getYear()+"-"+regdate.getMonth() + "-" + regdate.getDay();
+        String sql = String.format("insert into users(name,surname,patronymic,nickname,registration)" +
+                "values" +
+                "(%s, %s, %s,%s,%s)",usr.getName(), usr.getSurname(), usr.getPatronymic(), usr.getNickname(), date);
+
+        return DBController.executeSQL(sql);
     }
 
     public static BookEntity getCurrentBook(ResultSet table){

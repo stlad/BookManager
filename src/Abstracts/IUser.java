@@ -13,4 +13,5 @@ public interface IUser
 
     public Date getJoinDate();
     public void setJoinDate(Date date);
+
 }

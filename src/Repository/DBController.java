@@ -62,11 +62,11 @@ public class DBController {
     public static Statement CreateStatement()
     {
         try{
-
             return Connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
         }
         catch (SQLException e)
         {
+            e.printStackTrace();;
             System.out.println("Не получилось создать Statement");
             return null;
         }
@@ -77,15 +77,17 @@ public class DBController {
             CreateConnection();
         }
         var stat = CreateStatement();
+        ResultSet res = null;
 
         try {
             String sql = String.format("select * from %s ", tableName);
-            return stat.executeQuery(sql);
+            res =  stat.executeQuery(sql);
+
         }
         catch (SQLException e){
             e.printStackTrace();
         }
-        return null;
+        return res;
     }
 
 
@@ -95,18 +97,30 @@ public class DBController {
             CreateConnection();
         }
         var stat = CreateStatement();
-
+        ResultSet res = null;
         try {
             String sql = String.format("select * from book_collections \n" +
                     "inner join books on book_id = books.id\n" +
                     "where user_id= %d", userID);
 
-            return stat.executeQuery(sql);
+            res = stat.executeQuery(sql);
+
         }
         catch (SQLException e){
             e.printStackTrace();
         }
-        return null;
+        return res;
+    }
+
+    public static  boolean executeSQL(String sql){
+        try{
+            if(Connection == null){CreateConnection();}
+            var stat = CreateStatement();
+            stat.executeQuery(sql);
+        }
+        catch (SQLException e ){return false;}
+        finally {CloseConnection(Connection);}
+        return true;
     }
 
 
