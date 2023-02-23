@@ -1,6 +1,8 @@
 package Repository;
 
+import Abstracts.BookEntity;
 import Abstracts.IUser;
+import Domain.Book;
 import Domain.User;
 
 import java.sql.ResultSet;
@@ -23,5 +25,18 @@ public class TableWrapper
         }
         catch(SQLException e) {e.printStackTrace();}
         return null;
+    }
+
+    public static BookEntity getCurrentBook(ResultSet table){
+        try{
+            Book book = new Book();
+            book.setID(table.getInt("book_id"));
+            book.setName(table.getString("name"));
+            book.setReleaseDate(table.getDate("release_date"));
+            return book;
+        }
+        catch(SQLException e) {e.printStackTrace();}
+        return null;
+
     }
 }

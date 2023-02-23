@@ -26,6 +26,7 @@ public abstract class BookEntity
     private Date releaseDate;
 
 
+    public void setID(int id){this.ID = id;}
     public String getName() { return this.bookName;}
     public void setName(String name) {bookName = name; }
 
