@@ -12,29 +12,28 @@ import java.util.HashSet;
 public abstract class BookEntity
 {
 
-    public static ArrayList<BookEntity> BookInstances;
+    /*public static ArrayList<BookEntity> BookInstances;
     static
     {
         BookInstances = new ArrayList<BookEntity>();
-    }
+    }*/
 
     public HashSet<String> Tags;
     public ArrayList<IReview> Reviews;
-
     public Integer ID;
-
-
     private String bookName;
+    private IAuthor author;
+    private Date releaseDate;
+
+
     public String getName() { return this.bookName;}
     public void setName(String name) {bookName = name; }
 
 
-    private IAuthor author;
     public IAuthor getAuthor() {return author;}
     public void setAuthor(IAuthor auth) {author = auth;}
 
 
-    private Date releaseDate;
     public Date getReleaseDate() {return releaseDate;}
     public void setReleaseDate(Date rdate) {releaseDate = rdate;}
 
@@ -44,13 +43,13 @@ public abstract class BookEntity
     {
         Tags = new HashSet<String>();
         Reviews = new ArrayList<IReview>();
-        ID = BookInstances.size();
+        //ID = BookInstances.size();
     }
 
     public void addTag(String tag) {Tags.add(tag);}
 
 
-    public IReview AddReview(IUser user, String comment, Integer score)
+    /*public IReview AddReview(IUser user, String comment, Integer score)
     {
         var rev = new Review();
         rev.setTarget(this);
@@ -60,7 +59,7 @@ public abstract class BookEntity
 
         this.Reviews.add(rev);
         return rev;
-    };
+    };*/
 
     public String toString()
     {

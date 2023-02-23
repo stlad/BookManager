@@ -5,8 +5,6 @@ import java.util.Date;
 
 public interface IUser
 {
-    public Integer getID();
-    public void setID(Integer id);
     public ArrayList<BookEntity> getBookCollection();
     public ArrayList<IReview> getReviews ();
 

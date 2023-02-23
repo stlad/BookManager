@@ -10,9 +10,7 @@ import java.util.Date;
 
 public class User extends Person implements IUser
 {
-    private Integer id;
-    public Integer getID(){return id;}
-    public void setID(Integer id){this.id = id;}
+
 
     private ArrayList<BookEntity> bookCollection;
     public ArrayList<BookEntity> getBookCollection(){return bookCollection;}
@@ -37,5 +35,11 @@ public class User extends Person implements IUser
     {
         bookCollection = new ArrayList<BookEntity>();
         reviews = new ArrayList<IReview>();
+    }
+
+    @Override
+    public String toString(){
+        String s = getID() + " " + getNickname();
+        return s;
     }
 }
