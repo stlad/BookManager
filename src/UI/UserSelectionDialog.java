@@ -1,22 +1,31 @@
 package UI;
 
 import Abstracts.IUser;
+import Domain.User;
 import Repository.DBController;
 import Repository.TableWrapper;
 
 import javax.swing.*;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class UserSelectionDialog extends JDialog{
     private JPanel userListPanel;
     private JList userlist;
     private JButton selectBtn;
+    private JButton addBtn;
+    private JButton dltBtn;
+    private JTextField nickField;
+    private JTextField surnameField;
+    private JTextField nameField;
+    private JTextField patronField;
 
     public UserSelectionDialog() {
         setContentPane(userListPanel);
         setVisible(true);
-        setSize(200,300);
+        setSize(600,700);
         setLocation(200,200);
         userlist.setSize(100,100);
 
@@ -30,10 +39,44 @@ public class UserSelectionDialog extends JDialog{
             }
         });
 
+        addBtn.addActionListener(e -> {
+            var usr = getNewUser();
+            if(usr.getNickname().equals("")) return;
+            TableWrapper.addNewUser((User) usr);
+            refreshUserList();
+            nickField.setText("");
+            nameField.setText("");
+            surnameField.setText("");
+            patronField.setText("");
+        });
+
+        dltBtn.addActionListener(e -> {
+            deleteSelectedUser();
+        });
+
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
     }
 
+
+    private void deleteSelectedUser(){
+        var selectedUsr=(User) userlist.getSelectedValue();
+        if(selectedUsr != null) {
+            TableWrapper.deleteUser(selectedUsr);
+            refreshUserList();
+        }
+
+    }
+
+    private IUser getNewUser(){
+        User usr = new User();
+        usr.setNickname(nickField.getText());
+        usr.setName(nameField.getText());
+        usr.setSurname(surnameField.getText());
+        usr.setPatronymic(patronField.getText());
+        usr.setJoinDate(new Date());
+        return usr;
+    }
 
     private void refreshUserList(){
         userlist.setModel(getUsersModel());

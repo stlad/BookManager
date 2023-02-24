@@ -37,12 +37,18 @@ public class TableWrapper
      */
     public static boolean addNewUser(User usr){
         var regdate = usr.getJoinDate();
-        String date = regdate.getYear()+"-"+regdate.getMonth() + "-" + regdate.getDay();
+        String date = (regdate.getYear()+1900)+"-"+(regdate.getMonth()+1) + "-" + regdate.getDate();
         String sql = String.format("insert into users(name,surname,patronymic,nickname,registration)" +
                 "values" +
-                "(%s, %s, %s,%s,%s)",usr.getName(), usr.getSurname(), usr.getPatronymic(), usr.getNickname(), date);
+                "('%s', '%s', '%s','%s','%s')",usr.getName(), usr.getSurname(), usr.getPatronymic(), usr.getNickname(), date);
 
-        return DBController.executeSQL(sql);
+        return DBController.executeUpdateSQL(sql);
+    }
+
+    public static boolean deleteUser(User usr){
+        int id = usr.getID();
+        String sql = String.format("delete from users where id=%d",id);
+        return DBController.executeUpdateSQL(sql);
     }
 
     public static BookEntity getCurrentBook(ResultSet table){

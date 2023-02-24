@@ -1,8 +1,6 @@
 package Repository;
 
-import Abstracts.IUser;
 import Abstracts.Person;
-import Domain.User;
 
 import java.sql.*;
 import java.util.Properties;
@@ -112,14 +110,15 @@ public class DBController {
         return res;
     }
 
-    public static  boolean executeSQL(String sql){
+    public static  boolean executeUpdateSQL(String sql){
         try{
             if(Connection == null){CreateConnection();}
             var stat = CreateStatement();
-            stat.executeQuery(sql);
+            stat.executeUpdate(sql);
         }
-        catch (SQLException e ){return false;}
-        finally {CloseConnection(Connection);}
+        catch (SQLException e ){
+            System.out.println(e.getMessage());
+            return false;}
         return true;
     }
 
