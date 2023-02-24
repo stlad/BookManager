@@ -48,6 +48,8 @@ public class TableWrapper
     public static boolean deleteUser(User usr){
         int id = usr.getID();
         String sql = String.format("delete from users where id=%d",id);
+        String collection_delete_sql = String.format("delete from book_collections where user_id=%d",id);
+        DBController.executeUpdateSQL(collection_delete_sql); // НАДО БЫЛО УДАЛЯТЬ КАСКАДНО НА УРОВНЕ БД
         return DBController.executeUpdateSQL(sql);
     }
 
@@ -61,6 +63,5 @@ public class TableWrapper
         }
         catch(SQLException e) {e.printStackTrace();}
         return null;
-
     }
 }

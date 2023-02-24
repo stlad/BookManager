@@ -39,7 +39,6 @@ public class User extends Person implements IUser
 
     @Override
     public String toString(){
-        String s = getID() + " " + getNickname();
-        return s;
+        return getNickname();
     }
 }

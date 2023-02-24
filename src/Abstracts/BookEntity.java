@@ -49,6 +49,11 @@ public abstract class BookEntity
 
     public void addTag(String tag) {Tags.add(tag);}
 
+    public String getFullInfo(){
+        Formatter f = new Formatter();
+        f.format("Книга: %s \nДата выхода: %tD" , this.getName(), this.getReleaseDate());
+        return f.toString();
+    }
 
     /*public IReview AddReview(IUser user, String comment, Integer score)
     {
@@ -64,8 +69,11 @@ public abstract class BookEntity
 
     public String toString()
     {
-        Formatter f = new Formatter();
+        /*Formatter f = new Formatter();
         f.format("Book Name: %s \n Release Date: %tD", this.getName(), this.getReleaseDate());
-        return f.toString();
+        return f.toString();*/
+        return getName();
     }
+
+
 }

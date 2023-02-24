@@ -3,7 +3,6 @@ package UI;
 import Abstracts.BookEntity;
 import Abstracts.IUser;
 import Abstracts.Person;
-import Domain.Book;
 import Repository.DBController;
 import Repository.TableWrapper;
 
@@ -13,8 +12,10 @@ import java.util.ArrayList;
 
 public class MainWindow extends JFrame{
     private JPanel mainPanel;
-    private JTextField textField1;
     private JList bookList;
+    private JLabel bookNameLabel;
+    private JTextArea bookInfoArea;
+    private JButton addBookBtn;
 
     private IUser selectedUser;
 
@@ -27,6 +28,13 @@ public class MainWindow extends JFrame{
         setTitle(currentUser.toString());
         refreshBooks();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        bookList.addListSelectionListener(e -> {
+            if(bookList.getSelectedValue() == null) return;
+            BookEntity currentBook = (BookEntity) bookList.getSelectedValue();
+            bookNameLabel.setText (currentBook.getName());
+            bookInfoArea.setText(currentBook.getFullInfo());
+        });
     }
 
 
